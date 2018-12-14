@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"os/user"
+	"regexp"
 	"strings"
 )
 
@@ -31,13 +32,18 @@ func main() {
 	}
 	/* Command line client loop */
 	stdin := bufio.NewReader(os.Stdin)
-	var rawcmdline string
+	var s1 string
 	for {
 		fmt.Printf("kval> ")
-		rawcmdline, _ = stdin.ReadString('\n')
-		cmdline := strings.TrimSuffix(rawcmdline, "\n")
-		if len(cmdline) > 0 {
-			fmt.Println(cmdline)
+		s1, _ = stdin.ReadString('\n')
+		s2 := strings.TrimSpace(s1)
+
+		collapsespace := regexp.MustCompile(`\s+`)
+		s3 := collapsespace.ReplaceAllString(s2, " ");
+
+		if len(s3) > 0 {
+			s4 := strings.Split(s3, " ")
+			fmt.Println(s4)
 		}
 	}
 }
