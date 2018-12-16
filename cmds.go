@@ -5,17 +5,14 @@ import (
 )
 
 func CliCreate(args []string) {
-	fmt.Printf("Create database %v\n", args)
-
 	if len(args) != 2 {
 		fmt.Println("Syntax: create|c <database>")
 		return
 	}
+	Create(args[1])
 }
 
 func CliRemove(args []string) {
-	fmt.Printf("Remove database %v\n", args)
-
 	if len(args) != 2 {
 		fmt.Println("Syntax: remove|r <database>")
 		return
