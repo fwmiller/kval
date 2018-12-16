@@ -39,23 +39,25 @@ func main() {
 		s2 := strings.TrimSpace(s1)
 
 		collapsespace := regexp.MustCompile(`\s+`)
-		s3 := collapsespace.ReplaceAllString(s2, " ");
+		s3 := collapsespace.ReplaceAllString(s2, " ")
 
 		if len(s3) > 0 {
 			s4 := strings.Split(s3, " ")
-
-			if s4[0] == "quit" {
+			switch s4[0] {
+			case "quit":
 				os.Exit(0)
-			} else if s4[0] == "create" || s4[0] == "c" {
+			case "create", "c":
 				Create(s4)
-			} else if s4[0] == "remove" || s4[0] == "r" {
+			case "remove", "r":
 				Remove(s4)
-			} else if s4[0] == "set" || s4[0] == "s" {
+			case "set", "s":
 				Set(s4)
-			} else if s4[0] == "get" || s4[0] == "g" {
+			case "get", "g":
 				Get(s4)
-			} else if s4[0] == "del" || s4[0] == "d" {
+			case "del", "d":
 				Del(s4)
+			default:
+				Help(s4)
 			}
 		}
 	}

@@ -48,3 +48,7 @@ func Del(args []string) {
 		return
 	}
 }
+
+func Help(args []string) {
+	fmt.Printf("Unknown command %v (add something helpful here", args)
+}
