@@ -4,7 +4,7 @@ import (
 	"fmt"
 )
 
-func Create(args []string) {
+func CliCreate(args []string) {
 	fmt.Printf("Create database %v\n", args)
 
 	if len(args) != 2 {
@@ -13,7 +13,7 @@ func Create(args []string) {
 	}
 }
 
-func Remove(args []string) {
+func CliRemove(args []string) {
 	fmt.Printf("Remove database %v\n", args)
 
 	if len(args) != 2 {
@@ -22,7 +22,7 @@ func Remove(args []string) {
 	}
 }
 
-func Set(args []string) {
+func CliSet(args []string) {
 	fmt.Printf("Set key-value pair %v\n", args)
 
 	if len(args) != 3 {
@@ -31,7 +31,7 @@ func Set(args []string) {
 	}
 }
 
-func Get(args []string) {
+func CliGet(args []string) {
 	fmt.Printf("Get value for key %v\n", args)
 
 	if len(args) != 2 {
@@ -40,7 +40,7 @@ func Get(args []string) {
 	}
 }
 
-func Del(args []string) {
+func CliDel(args []string) {
 	fmt.Printf("Delete key-value pair %v\n", args)
 
 	if len(args) != 2 {
@@ -49,6 +49,6 @@ func Del(args []string) {
 	}
 }
 
-func Help(args []string) {
-	fmt.Printf("Unknown command %v (add something helpful here", args)
+func CliHelp(args []string) {
+	fmt.Printf("Unknown command %v (add something helpful here)\n", args)
 }

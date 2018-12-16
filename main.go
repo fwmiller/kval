@@ -47,17 +47,17 @@ func main() {
 			case "quit":
 				os.Exit(0)
 			case "create", "c":
-				Create(s4)
+				CliCreate(s4)
 			case "remove", "r":
-				Remove(s4)
+				CliRemove(s4)
 			case "set", "s":
-				Set(s4)
+				CliSet(s4)
 			case "get", "g":
-				Get(s4)
+				CliGet(s4)
 			case "del", "d":
-				Del(s4)
+				CliDel(s4)
 			default:
-				Help(s4)
+				CliHelp(s4)
 			}
 		}
 	}
