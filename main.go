@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"os/user"
-	"regexp"
 	"strings"
 )
 
@@ -36,28 +35,53 @@ func main() {
 	for {
 		fmt.Printf("kval> ")
 		s1, _ = stdin.ReadString('\n')
-		s2 := strings.TrimSpace(s1)
-
-		collapsespace := regexp.MustCompile(`\s+`)
-		s3 := collapsespace.ReplaceAllString(s2, " ")
-
-		if len(s3) > 0 {
-			s4 := strings.Split(s3, " ")
-			switch s4[0] {
+		s2 := strings.Trim(s1, "\n")
+		s3 := strings.TrimSpace(s2)
+		s4 := strings.SplitAfterN(s3, " ", 2)
+		if len(s4[0]) > 0 {
+			switch strings.TrimSpace(s4[0]) {
 			case "quit":
 				os.Exit(0)
 			case "create", "c":
-				CliCreate(s4)
+				if len(s4) > 1 {
+					CliCreate(s4[1])
+				} else {
+					fmt.Println("Missing argument")
+				}
+
 			case "remove", "r":
-				CliRemove(s4)
+				if len(s4) > 1 {
+					CliRemove(s4[1])
+				} else {
+					fmt.Println("Missing argument")
+				}
+
 			case "set", "s":
-				CliSet(s4)
+				if len(s4) > 1 {
+					CliSet(s4[1])
+				} else {
+					fmt.Println("Missing argument")
+				}
+
 			case "get", "g":
-				CliGet(s4)
+				if len(s4) > 1 {
+					CliGet(s4[1])
+				} else {
+					fmt.Println("Missing argument")
+				}
+
 			case "del", "d":
-				CliDel(s4)
+				if len(s4) > 1 {
+					CliDel(s4[1])
+				} else {
+					fmt.Println("Missing argument")
+				}
+
+			case "help", "h":
+				CliHelp()
+
 			default:
-				CliHelp(s4)
+				CliHelp()
 			}
 		}
 	}
