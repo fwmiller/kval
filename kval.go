@@ -6,7 +6,7 @@ import (
 )
 
 func Create(database string) {
-	dbdir := kvaldir + "/" + database;
+	dbdir := kvaldir + "/" + database
 
 	/* Create database directory */
 	fmt.Printf("Create database %v", dbdir)
