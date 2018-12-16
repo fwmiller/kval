@@ -56,6 +56,8 @@ func main() {
 				Get(s4)
 			case "del", "d":
 				Del(s4)
+			default:
+				Help(s4)
 			}
 		}
 	}
