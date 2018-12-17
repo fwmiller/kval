@@ -1,5 +1,4 @@
-kval: A key-value store
-=======================
+# kval: A key-value store
 
 kval is a persistent key-value store written in Go.  The system keeps
 key-value stores (hereafter referred to as databases) on secondary storage
@@ -8,8 +7,7 @@ key-value stores (hereafter referred to as databases) on secondary storage
 The system is architected with a front-end command line interface (cli)
 and a backend "library" that can be decoupled from the cli.
 
-cli Commands
-------------
+## cli Commands
 
 | Command	| Description					|
 |---------------|-----------------------------------------------|
@@ -21,3 +19,17 @@ cli Commands
 | del		| Delete a key-value pair			|
 | quit		| Quit						|
 | help		| Help						|
+
+## Backend API
+
+### `KvalInit()`
+
+Initialize the kval backend
+
+### `KvalIsDb(dbname string) string`
+
+Check whether `dbname` is a valid database name that currently exists
+
+### `KvalCreateDb(dbname string)`
+
+Create a new key-value store database cased `dbname`
