@@ -2,10 +2,26 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"regexp"
+	"strings"
 )
 
+var dbNameCheck = regexp.MustCompile(`^[a-zA-Z0-9\-_]+$`).MatchString
+
 func CliCreate(args string) {
-	fmt.Printf("Create args = %v\n", args)
+	dbname := strings.TrimSpace(args)
+	if !dbNameCheck(dbname) {
+		fmt.Printf("Illegal characters in %v\n", dbname)
+		return
+	}
+	dbpath := kvaldir + "/" + dbname
+	fmt.Printf("Create database %v", dbpath)
+	err := os.Mkdir(dbpath, 0777)
+	if err != nil {
+		fmt.Printf(" failed")
+	}
+	fmt.Printf("\n")
 }
 
 func CliRemove(args string) {
