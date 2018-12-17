@@ -5,10 +5,8 @@ import (
 	"os"
 )
 
-func Create(database string) {
-	dbpath := kvaldir + "/" + database
-
-	/* Create database directory */
+func Create(dbpath string) {
+	/* Assume dbpath is a valid database path */
 	fmt.Printf("Create database %v", dbpath)
 	err := os.Mkdir(dbpath, 0777)
 	if err != nil {
