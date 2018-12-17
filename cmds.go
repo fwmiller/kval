@@ -8,6 +8,10 @@ import (
 
 var dbNameCheck = regexp.MustCompile(`^[a-zA-Z0-9\-_]+$`).MatchString
 
+func CliDb(args string) {
+	fmt.Printf("Set current database = %v\n", args)
+}
+
 func CliCreate(args string) {
 	dbname := strings.TrimSpace(args)
 	if !dbNameCheck(dbname) {

@@ -9,6 +9,7 @@ import (
 )
 
 var kvaldir string
+var currdb string
 
 func main() {
 	fmt.Println("kval (C) Frank W Miller")
@@ -33,7 +34,12 @@ func main() {
 	stdin := bufio.NewReader(os.Stdin)
 	var s1 string
 	for {
-		fmt.Printf("kval> ")
+		if currdb != "" {
+			fmt.Printf("%v>", currdb)
+		} else {
+			fmt.Printf("kval> ")
+		}
+
 		s1, _ = stdin.ReadString('\n')
 		s2 := strings.Trim(s1, "\n")
 		s3 := strings.TrimSpace(s2)
@@ -42,6 +48,13 @@ func main() {
 			switch strings.TrimSpace(s4[0]) {
 			case "quit":
 				os.Exit(0)
+			case "db":
+				if len(s4) > 1 {
+					CliDb(s4[1])
+				} else {
+					fmt.Println("Missing argument")
+				}
+
 			case "create", "c":
 				if len(s4) > 1 {
 					CliCreate(s4[1])
