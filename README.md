@@ -7,3 +7,17 @@ key-value stores (hereafter referred to as databases) on secondary storage
 
 The system is architected with a front-end command line interface (cli)
 and a backend "library" that can be decoupled from the cli.
+
+cli Commands
+------------
+
+| Command	| Description					|
+|---------------|-----------------------------------------------|
+| db		| Set current database				|
+| create	| Create a new key-value store database		|
+| remove	| Remove existing database			|
+| set		| Set a key-value pair				|
+| get		| Get the value associated with a key		|
+| del		| Delete a key-value pair			|
+| quit		| Quit						|
+| help		| Help						|
