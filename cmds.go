@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"regexp"
 	"strings"
 )
@@ -15,13 +14,7 @@ func CliCreate(args string) {
 		fmt.Printf("Illegal characters in %v\n", dbname)
 		return
 	}
-	dbpath := kvaldir + "/" + dbname
-	fmt.Printf("Create database %v", dbpath)
-	err := os.Mkdir(dbpath, 0777)
-	if err != nil {
-		fmt.Printf(" failed")
-	}
-	fmt.Printf("\n")
+	Create(dbname)
 }
 
 func CliRemove(args string) {
