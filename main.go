@@ -4,32 +4,16 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"os/user"
 	"strings"
 )
 
-var kvaldir string
 var currdb string
 
 func main() {
 	fmt.Println("kval (C) Frank W Miller")
 
-	/* Get path for kval directory */
-	usr, _ := user.Current()
-	kvaldir = usr.HomeDir + "/.kval"
-	fmt.Printf("kval directory = %v\n", kvaldir)
+	KvalInit()
 
-	/* Check if kval directory exists */
-	_, err := os.Stat(kvaldir)
-	if os.IsNotExist(err) {
-		fmt.Printf("Create kval directory %v", kvaldir)
-		err = os.Mkdir(kvaldir, 0777)
-		if err != nil {
-			fmt.Printf(" failed\n")
-			os.Exit(0)
-		}
-		fmt.Printf("\n")
-	}
 	/* Command line client loop */
 	stdin := bufio.NewReader(os.Stdin)
 	var s1 string
@@ -50,7 +34,10 @@ func main() {
 				os.Exit(0)
 			case "db":
 				if len(s4) > 1 {
-					CliDb(s4[1])
+					dbname := CliDb(s4[1])
+					if dbname != "" {
+						currdb = dbname
+					}
 				} else {
 					fmt.Println("Missing argument")
 				}
