@@ -32,4 +32,8 @@ Check whether `dbname` is a valid database name that currently exists
 
 ### `KvalCreateDb(dbname string)`
 
-Create a new key-value store database cased `dbname`
+Create a new key-value store database called `dbname`
+
+### `KvalSet(dbname string, key string, value string)`
+
+Set a new `key`-`value` pair in the database `dbname`
