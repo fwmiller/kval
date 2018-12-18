@@ -38,6 +38,6 @@ Create a new key-value store database called `dbname`
 
 Set a new `key`-`value` pair in the database `dbname`
 
-### `KvalGet(dbname string, key string) string
+### `KvalGet(dbname string, key string) string`
 
 Return the value associated with the specified `key` in the database `dbname`
