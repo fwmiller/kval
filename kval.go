@@ -77,7 +77,6 @@ func KvalSet(dbname string, key string, value string) {
 	/* Assume dbname is a valid database name */
 	dbkey := kvaldir + "/" + dbname + "/" + key
 
-	fmt.Printf("Set database key = %v\n", dbkey)
 	/* Check whether dbkey exists */
 	if _, err := os.Stat(dbkey); os.IsExist(err) {
 		fmt.Printf("Key %v already exists\n", dbkey)
