@@ -2,11 +2,14 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"os"
 	"os/user"
+	"regexp"
 )
 
 var kvaldir string
+var dbKeyCheck = regexp.MustCompile(`^[a-zA-Z0-9\-_]+$`).MatchString
 
 func KvalInit() {
 	/* Get path for kval directory */
@@ -67,8 +70,22 @@ func KvalCreateDb(dbname string) {
 }
 
 func KvalSet(dbname string, key string, value string) {
+	if !dbKeyCheck(key) {
+		fmt.Printf("Illegal characters in %v\n", key)
+		return
+	}
 	/* Assume dbname is a valid database name */
 	dbkey := kvaldir + "/" + dbname + "/" + key
 
 	fmt.Printf("Set database key = %v\n", dbkey)
+	/* Check whether dbkey exists */
+	if _, err := os.Stat(dbkey); os.IsExist(err) {
+		fmt.Printf("Key %v already exists\n", dbkey)
+		return
+	}
+	/* Write value to new key file */
+	err := ioutil.WriteFile(dbkey, []byte(value), 0644)
+	if err != nil {
+		fmt.Printf("Write to key file %v failed\n", dbkey)
+	}
 }
