@@ -37,3 +37,7 @@ Create a new key-value store database called `dbname`
 ### `KvalSet(dbname string, key string, value string)`
 
 Set a new `key`-`value` pair in the database `dbname`
+
+### `KvalGet(dbname string, key string) string
+
+Return the value associated with the specified `key` in the database `dbname`

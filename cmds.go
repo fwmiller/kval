@@ -46,12 +46,23 @@ func CliSet(args string) {
 	}
 	key := strings.TrimSpace(s[0])
 	value := strings.TrimSpace(s[1])
-	fmt.Printf("Set key = %v value = %v\n", key, value)
+
+	/* Set key-value pair in current database */
 	KvalSet(currdb, key, value)
 }
 
 func CliGet(args string) {
-	fmt.Printf("Get value for key args = %v\n", args)
+	if currdb == "" {
+		fmt.Println("Current database not set")
+		return
+	}
+	key := strings.TrimSpace(args)
+
+	/* Get value associated with key in current database */
+	value := KvalGet(currdb, key)
+	if value != "" {
+		fmt.Println(value)
+	}
 }
 
 func CliDel(args string) {
