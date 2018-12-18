@@ -12,7 +12,7 @@ func CliDb(args string) string {
 	/* Check for valid dbname */
 	dbname := strings.TrimSpace(args)
 	if !dbNameCheck(dbname) {
-		fmt.Printf("Illegal characters in %v\n", dbname)
+		fmt.Printf("Illegal characters in %s\n", dbname)
 		return ""
 	}
 	/* Check for valid database */
@@ -23,7 +23,7 @@ func CliCreate(args string) {
 	/* Check for valid dbname */
 	dbname := strings.TrimSpace(args)
 	if !dbNameCheck(dbname) {
-		fmt.Printf("Illegal characters in %v\n", dbname)
+		fmt.Printf("Illegal characters in %s\n", dbname)
 		return
 	}
 	/* Create new database */
@@ -31,7 +31,7 @@ func CliCreate(args string) {
 }
 
 func CliRemove(args string) {
-	fmt.Printf("Remove args = %v\n", args)
+	fmt.Printf("Remove args = %s\n", args)
 }
 
 func CliSet(args string) {
@@ -66,7 +66,7 @@ func CliGet(args string) {
 }
 
 func CliDel(args string) {
-	fmt.Printf("Delete key-value pair args = %v\n", args)
+	fmt.Printf("Delete key-value pair args = %s\n", args)
 }
 
 func CliHelp() {

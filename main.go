@@ -19,7 +19,7 @@ func main() {
 	var s1 string
 	for {
 		if currdb != "" {
-			fmt.Printf("%v> ", currdb)
+			fmt.Printf("%s> ", currdb)
 		} else {
 			fmt.Printf("kval> ")
 		}
