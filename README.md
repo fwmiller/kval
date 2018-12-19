@@ -24,27 +24,27 @@ try to follow Redis syntax where possible.
 
 ### select
 
-Syntax: `select` <dbname>
+Syntax: `select` &lt dbname &gt
 
 ### create
 
-Syntax: `create` <dbname>
+Syntax: `create` &lt dbname &gt
 
 ### remove
 
-Syntax: `remove` <dbname>
+Syntax: `remove` &lt dbname &gt
 
 ### set
 
-Syntax: `set` <key> <value>
+Syntax: `set` &lt key &gt &lt value &gt
 
 ### get
 
-Syntax: `get` <key>
+Syntax: `get` &lt key &gt
 
 ### del
 
-Syntax: `del` <key>
+Syntax: `del` &lt key &gt
 
 
 ## Backend API
