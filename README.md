@@ -8,6 +8,7 @@ The system is architected with a front-end command line interface (cli)
 and a backend "library" that can be decoupled from the cli.  The commands
 try to follow Redis syntax where possible.
 
+
 ## cli Commands
 
 | Command	| Description					|
@@ -20,6 +21,31 @@ try to follow Redis syntax where possible.
 | del		| Delete a key-value pair			|
 | quit		| Quit						|
 | help		| Help						|
+
+### select
+
+Syntax: `select` <dbname>
+
+### create
+
+Syntax: `create` <dbname>
+
+### remove
+
+Syntax: `remove` <dbname>
+
+### set
+
+Syntax: `set` <key> <value>
+
+### get
+
+Syntax: `get` <key>
+
+### del
+
+Syntax: `del` <key>
+
 
 ## Backend API
 
