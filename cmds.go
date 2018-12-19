@@ -27,11 +27,28 @@ func CliCreate(args string) {
 		return
 	}
 	/* Create new database */
-	KvalCreateDb(dbname)
+	result := KvalCreateDb(dbname)
+
+	/* Set current to new database if it was clear */
+	if result && currdb == "" {
+		currdb = dbname
+	}
 }
 
 func CliRemove(args string) {
-	fmt.Printf("Remove args = %s\n", args)
+	/* Check for valid dbname */
+	dbname := strings.TrimSpace(args)
+	if !dbNameCheck(dbname) {
+		fmt.Printf("Illegal characters in %s\n", dbname)
+		return
+	}
+	/* Remove existing database */
+	result := KvalRemoveDb(dbname)
+
+	/* Clear current database if it was just removed */
+	if result && dbname == currdb {
+		currdb = ""
+	}
 }
 
 func CliSet(args string) {

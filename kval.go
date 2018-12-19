@@ -57,16 +57,32 @@ func KvalIsDb(dbname string) string {
 	return dbname
 }
 
-func KvalCreateDb(dbname string) {
+func KvalCreateDb(dbname string) bool {
 	/* Assume dbname is a valid database name */
 	dbpath := kvaldir + "/" + dbname
 
 	fmt.Printf("Create database %s", dbpath)
 	err := os.Mkdir(dbpath, 0777)
 	if err != nil {
-		fmt.Printf(" failed")
+		fmt.Printf(" failed\n")
+		return false
 	}
 	fmt.Printf("\n")
+	return true
+}
+
+func KvalRemoveDb(dbname string) bool {
+	/* Assume dbname is a valid database name */
+	dbpath := kvaldir + "/" + dbname
+
+	fmt.Printf("Remove database %s", dbpath)
+	err := os.RemoveAll(dbpath)
+	if err != nil {
+		fmt.Printf(" failed\n")
+		return false
+	}
+	fmt.Printf("\n")
+	return true
 }
 
 func KvalSet(dbname string, key string, value string) {
@@ -78,8 +94,8 @@ func KvalSet(dbname string, key string, value string) {
 	dbkey := kvaldir + "/" + dbname + "/" + key
 
 	/* Check whether dbkey exists */
-	if _, err := os.Stat(dbkey); os.IsExist(err) {
-		fmt.Printf("Key %s already exists\n", dbkey)
+	if _, err := os.Stat(dbkey); !os.IsNotExist(err) {
+		fmt.Printf("Value for key %s already set\n", dbkey)
 		return
 	}
 	/* Write value to new key file */

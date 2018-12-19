@@ -21,7 +21,7 @@ func main() {
 		if currdb != "" {
 			fmt.Printf("%s> ", currdb)
 		} else {
-			fmt.Printf("kval> ")
+			fmt.Printf("> ")
 		}
 
 		s1, _ = stdin.ReadString('\n')
