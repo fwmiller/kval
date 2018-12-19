@@ -19,10 +19,9 @@ func main() {
 	var s1 string
 	for {
 		if currdb != "" {
-			fmt.Printf("%s> ", currdb)
-		} else {
-			fmt.Printf("> ")
+			fmt.Printf("%s", currdb)
 		}
+		fmt.Printf("> ")
 
 		s1, _ = stdin.ReadString('\n')
 		s2 := strings.Trim(s1, "\n")
@@ -32,7 +31,7 @@ func main() {
 			switch strings.TrimSpace(s4[0]) {
 			case "quit":
 				os.Exit(0)
-			case "db":
+			case "select":
 				if len(s4) > 1 {
 					dbname := CliDb(s4[1])
 					if dbname != "" {

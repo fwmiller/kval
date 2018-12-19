@@ -5,13 +5,14 @@ key-value stores (hereafter referred to as databases) on secondary storage
 (e.g. rotating disk or solid state storage) on a local machine.
 
 The system is architected with a front-end command line interface (cli)
-and a backend "library" that can be decoupled from the cli.
+and a backend "library" that can be decoupled from the cli.  The commands
+try to follow Redis syntax where possible.
 
 ## cli Commands
 
 | Command	| Description					|
 |---------------|-----------------------------------------------|
-| db		| Set current database				|
+| select	| Set current database				|
 | create	| Create a new key-value store database		|
 | remove	| Remove existing database			|
 | set		| Set a key-value pair				|
