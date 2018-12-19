@@ -30,9 +30,13 @@ Initialize the kval backend
 
 Check whether `dbname` is a valid database name that currently exists
 
-### `KvalCreateDb(dbname string)`
+### `KvalCreateDb(dbname string) bool`
 
 Create a new key-value store database called `dbname`
+
+### `KvalRemoveDb(dbname string) bool`
+
+Remove database called `dbname`
 
 ### `KvalSet(dbname string, key string, value string)`
 
