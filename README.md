@@ -70,6 +70,10 @@ Create a new key-value store database called `dbname`
 
 Remove database called `dbname`
 
+### `func KvalKeys(dbname string)`
+
+Print the keys in the database called `dbname`
+
 ### `KvalSet(dbname string, key string, value string)`
 
 Set a new `key`-`value` pair in the database `dbname`
