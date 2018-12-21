@@ -125,3 +125,20 @@ func KvalGet(dbname string, key string) string {
 	}
 	return string(value)
 }
+
+func KvalDel(dbname string, key string) {
+	if !dbKeyCheck(key) {
+		fmt.Printf("Illegal characters in key %s\n", key)
+		return
+	}
+	/* Assume dbname is a valid database name */
+	dbkey := kvaldir + "/" + dbname + "/" + key
+
+	fmt.Printf("Delete %s", dbkey)
+	err := os.Remove(dbkey)
+	if err != nil {
+		fmt.Printf(" failed\n")
+		return
+	}
+	fmt.Printf("\n")
+}

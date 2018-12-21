@@ -72,3 +72,7 @@ Set a new `key`-`value` pair in the database `dbname`
 ### `KvalGet(dbname string, key string) string`
 
 Return the value associated with the specified `key` in the database `dbname`
+
+### `KvalDel(dbname string, key string)`
+
+Delete the `key`-value pair in the database `dbname`

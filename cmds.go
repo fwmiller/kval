@@ -83,7 +83,14 @@ func CliGet(args string) {
 }
 
 func CliDel(args string) {
-	fmt.Printf("Delete key-value pair args = %s\n", args)
+	if currdb == "" {
+		fmt.Println("Current database not set")
+		return
+	}
+	key := strings.TrimSpace(args)
+
+	/* Delete key-value pair in current database */
+	KvalDel(currdb, key)
 }
 
 func CliHelp() {
