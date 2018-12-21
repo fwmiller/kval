@@ -51,6 +51,14 @@ func CliRemove(args string) {
 	}
 }
 
+func CliKeys() {
+	if currdb == "" {
+		fmt.Println("Current database not set")
+		return
+	}
+	KvalKeys(currdb)
+}
+
 func CliSet(args string) {
 	if currdb == "" {
 		fmt.Println("Current database not set")

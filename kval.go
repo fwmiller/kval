@@ -85,6 +85,20 @@ func KvalRemoveDb(dbname string) bool {
 	return true
 }
 
+func KvalKeys(dbname string) {
+	/* Assume dbname is a valid database name */
+	dbpath := kvaldir + "/" + dbname
+
+	files, err := ioutil.ReadDir(dbpath)
+	if err != nil {
+		fmt.Printf("Read database dir %s failed\n", dbpath)
+		return
+	}
+	for _, file := range files {
+		fmt.Println(file.Name())
+	}
+}
+
 func KvalSet(dbname string, key string, value string) {
 	if !dbKeyCheck(key) {
 		fmt.Printf("Illegal characters in key %s\n", key)

@@ -31,6 +31,7 @@ func main() {
 			switch strings.TrimSpace(s4[0]) {
 			case "quit":
 				os.Exit(0)
+
 			case "select":
 				if len(s4) > 1 {
 					dbname := CliDb(s4[1])
@@ -54,6 +55,9 @@ func main() {
 				} else {
 					fmt.Println("Missing argument")
 				}
+
+			case "keys", "k":
+				CliKeys()
 
 			case "set", "s":
 				if len(s4) > 1 {

@@ -16,6 +16,7 @@ try to follow Redis syntax where possible.
 | select	| Set current database				|
 | create	| Create a new key-value store database		|
 | remove	| Remove existing database			|
+| keys          | List the keys in a database                   |
 | set		| Set a key-value pair				|
 | get		| Get the value associated with a key		|
 | del		| Delete a key-value pair			|
@@ -37,6 +38,10 @@ Syntax: `remove` _dbname_
 ### set
 
 Syntax: `set` _key_ _value_
+
+### keys
+
+Syntax: `keys`
 
 ### get
 
