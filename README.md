@@ -70,7 +70,7 @@ Create a new key-value store database called `dbname`
 
 Remove database called `dbname`
 
-### `func KvalKeys(dbname string)`
+### `KvalKeys(dbname string)`
 
 Print the keys in the database called `dbname`
 
