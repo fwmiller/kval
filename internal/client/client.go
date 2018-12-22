@@ -1,14 +1,27 @@
-package main
+package client
 
 import (
 	"fmt"
 	"regexp"
 	"strings"
+
+	"github.com/fwmiller/kval/internal/kval"
 )
 
 var dbNameCheck = regexp.MustCompile(`^[a-zA-Z0-9\-_]+$`).MatchString
 
-func CliDb(args string) {
+type Client struct {
+	db     kval.DB
+	Currdb string
+}
+
+func New(db kval.DB) *Client {
+	return &Client{
+		db: db,
+	}
+}
+
+func (c *Client) Select(args string) {
 	/* Check for valid dbname */
 	n := strings.TrimSpace(args)
 	if !dbNameCheck(n) {
@@ -16,18 +29,18 @@ func CliDb(args string) {
 		return
 	}
 	/* Check for valid database */
-	name, err := db.IsDB(n)
+	name, err := c.db.IsDB(n)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	if name != "" {
-		currdb = name
+		c.Currdb = name
 	}
 }
 
-func CliCreate(args string) {
+func (c *Client) Create(args string) {
 	/* Check for valid dbname */
 	dbname := strings.TrimSpace(args)
 	if !dbNameCheck(dbname) {
@@ -35,19 +48,19 @@ func CliCreate(args string) {
 		return
 	}
 	/* Create new database */
-	err := db.Create(dbname)
+	err := c.db.Create(dbname)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	/* Set current to new database if it was clear */
-	if currdb == "" {
-		currdb = dbname
+	if c.Currdb == "" {
+		c.Currdb = dbname
 	}
 }
 
-func CliRemove(args string) {
+func (c *Client) Remove(args string) {
 	/* Check for valid dbname */
 	dbname := strings.TrimSpace(args)
 	if !dbNameCheck(dbname) {
@@ -55,25 +68,25 @@ func CliRemove(args string) {
 		return
 	}
 	/* Remove existing database */
-	err := db.Remove(dbname)
+	err := c.db.Remove(dbname)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
 	/* Clear current database if it was just removed */
-	if dbname == currdb {
-		currdb = ""
+	if dbname == c.Currdb {
+		c.Currdb = ""
 	}
 }
 
-func CliKeys() {
-	if currdb == "" {
+func (c *Client) Keys() {
+	if c.Currdb == "" {
 		fmt.Println("Current database not set")
 		return
 	}
 
-	keys, err := db.Keys(currdb)
+	keys, err := c.db.Keys(c.Currdb)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -84,8 +97,8 @@ func CliKeys() {
 	}
 }
 
-func CliSet(args string) {
-	if currdb == "" {
+func (c *Client) Set(args string) {
+	if c.Currdb == "" {
 		fmt.Println("Current database not set")
 		return
 	}
@@ -98,20 +111,20 @@ func CliSet(args string) {
 	value := strings.TrimSpace(s[1])
 
 	/* Set key-value pair in current database */
-	if err := db.Set(currdb, key, value); err != nil {
+	if err := c.db.Set(c.Currdb, key, value); err != nil {
 		fmt.Println(err)
 	}
 }
 
-func CliGet(args string) {
-	if currdb == "" {
+func (c *Client) Get(args string) {
+	if c.Currdb == "" {
 		fmt.Println("Current database not set")
 		return
 	}
 	key := strings.TrimSpace(args)
 
 	/* Get value associated with key in current database */
-	value, err := db.Get(currdb, key)
+	value, err := c.db.Get(c.Currdb, key)
 	if err != nil {
 		fmt.Println(err)
 	} else {
@@ -119,19 +132,19 @@ func CliGet(args string) {
 	}
 }
 
-func CliDel(args string) {
-	if currdb == "" {
+func (c *Client) Del(args string) {
+	if c.Currdb == "" {
 		fmt.Println("Current database not set")
 		return
 	}
 	key := strings.TrimSpace(args)
 
 	/* Delete key-value pair in current database */
-	if err := db.Del(currdb, key); err != nil {
+	if err := c.db.Del(c.Currdb, key); err != nil {
 		fmt.Println(err)
 	}
 }
 
-func CliHelp() {
+func (c *Client) Help() {
 	fmt.Println("Help (add something useful here)")
 }

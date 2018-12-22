@@ -7,29 +7,26 @@ import (
 	"os"
 	"strings"
 
+	"github.com/fwmiller/kval/internal/client"
 	"github.com/fwmiller/kval/internal/kval"
-)
-
-var (
-	currdb string
-	db     kval.DB
 )
 
 func main() {
 	fmt.Println("kval (C) Frank W Miller")
 
-	var err error
-	db, err = kval.New()
+	db, err := kval.New()
 	if err != nil {
 		log.Fatalf("failed to initialize database: %s", err)
 	}
+
+	cli := client.New(db)
 
 	/* Command line client loop */
 	stdin := bufio.NewReader(os.Stdin)
 	var s1 string
 	for {
-		if currdb != "" {
-			fmt.Printf("%s", currdb)
+		if cli.Currdb != "" {
+			fmt.Printf("%s", cli.Currdb)
 		}
 		fmt.Printf("> ")
 
@@ -43,26 +40,26 @@ func main() {
 		}
 
 		switch strings.TrimSpace(s4[0]) {
-		case "quit":
+		case "quit", "q":
 			os.Exit(0)
 		case "select":
-			getArg(s4, CliDb)
+			getArg(s4, cli.Select)
 		case "create", "c":
-			getArg(s4, CliCreate)
+			getArg(s4, cli.Create)
 		case "remove", "r":
-			getArg(s4, CliRemove)
+			getArg(s4, cli.Remove)
 		case "keys", "k":
-			CliKeys()
+			cli.Keys()
 		case "set", "s":
-			getArg(s4, CliSet)
+			getArg(s4, cli.Set)
 		case "get", "g":
-			getArg(s4, CliGet)
+			getArg(s4, cli.Get)
 		case "del", "d":
-			getArg(s4, CliDel)
+			getArg(s4, cli.Del)
 		case "help", "h":
-			CliHelp()
+			cli.Help()
 		default:
-			CliHelp()
+			cli.Help()
 		}
 	}
 }
