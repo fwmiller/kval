@@ -8,15 +8,23 @@ import (
 
 var dbNameCheck = regexp.MustCompile(`^[a-zA-Z0-9\-_]+$`).MatchString
 
-func CliDb(args string) string {
+func CliDb(args string) {
 	/* Check for valid dbname */
-	dbname := strings.TrimSpace(args)
-	if !dbNameCheck(dbname) {
-		fmt.Printf("Illegal characters in %s\n", dbname)
-		return ""
+	n := strings.TrimSpace(args)
+	if !dbNameCheck(n) {
+		fmt.Printf("Illegal characters in %s\n", n)
+		return
 	}
 	/* Check for valid database */
-	return KvalIsDb(dbname)
+	name, err := db.IsDB(n)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	if name != "" {
+		currdb = name
+	}
 }
 
 func CliCreate(args string) {
@@ -27,10 +35,14 @@ func CliCreate(args string) {
 		return
 	}
 	/* Create new database */
-	result := KvalCreateDb(dbname)
+	err := db.Create(dbname)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	/* Set current to new database if it was clear */
-	if result && currdb == "" {
+	if currdb == "" {
 		currdb = dbname
 	}
 }
@@ -43,10 +55,14 @@ func CliRemove(args string) {
 		return
 	}
 	/* Remove existing database */
-	result := KvalRemoveDb(dbname)
+	err := db.Remove(dbname)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	/* Clear current database if it was just removed */
-	if result && dbname == currdb {
+	if dbname == currdb {
 		currdb = ""
 	}
 }
@@ -56,7 +72,16 @@ func CliKeys() {
 		fmt.Println("Current database not set")
 		return
 	}
-	KvalKeys(currdb)
+
+	keys, err := db.Keys(currdb)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	for _, k := range keys {
+		fmt.Println(k)
+	}
 }
 
 func CliSet(args string) {
@@ -73,7 +98,9 @@ func CliSet(args string) {
 	value := strings.TrimSpace(s[1])
 
 	/* Set key-value pair in current database */
-	KvalSet(currdb, key, value)
+	if err := db.Set(currdb, key, value); err != nil {
+		fmt.Println(err)
+	}
 }
 
 func CliGet(args string) {
@@ -84,8 +111,10 @@ func CliGet(args string) {
 	key := strings.TrimSpace(args)
 
 	/* Get value associated with key in current database */
-	value := KvalGet(currdb, key)
-	if value != "" {
+	value, err := db.Get(currdb, key)
+	if err != nil {
+		fmt.Println(err)
+	} else {
 		fmt.Println(value)
 	}
 }
@@ -98,7 +127,9 @@ func CliDel(args string) {
 	key := strings.TrimSpace(args)
 
 	/* Delete key-value pair in current database */
-	KvalDel(currdb, key)
+	if err := db.Del(currdb, key); err != nil {
+		fmt.Println(err)
+	}
 }
 
 func CliHelp() {
