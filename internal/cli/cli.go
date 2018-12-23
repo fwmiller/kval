@@ -34,7 +34,6 @@ func (c *Client) Select(args string) {
 		fmt.Println(err)
 		return
 	}
-
 	if name != "" {
 		c.Currdb = name
 	}
@@ -85,13 +84,11 @@ func (c *Client) Keys() {
 		fmt.Println("Current database not set")
 		return
 	}
-
 	keys, err := c.db.Keys(c.Currdb)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
 	for _, k := range keys {
 		fmt.Println(k)
 	}
