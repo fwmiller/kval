@@ -7,7 +7,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/fwmiller/kval/internal/client"
+	"github.com/fwmiller/kval/internal/cli"
 	"github.com/fwmiller/kval/internal/kval"
 )
 
@@ -19,7 +19,7 @@ func main() {
 		log.Fatalf("failed to initialize database: %s", err)
 	}
 
-	cli := client.New(db)
+	cli := cli.New(db)
 
 	/* Command line client loop */
 	stdin := bufio.NewReader(os.Stdin)

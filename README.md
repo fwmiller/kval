@@ -11,6 +11,13 @@ try to follow Redis syntax where possible.
 
 ## cli Commands
 
+The cli is organized as a sub-package to the kval main program.  A set of
+cli commands are implemented as functions in this package.  Each function
+has a corresponding backend function defined by the kval interface (see
+the Backend API below).  The following table lists the implemented cli
+commands.
+
+
 | Command	| Description					|
 |---------------|-----------------------------------------------|
 | select	| Set current database				|
@@ -54,34 +61,34 @@ Syntax: `del` _key_
 
 ## Backend API
 
-### `KvalInit()`
+The backend is organized as a sub-package and is used by the cli sub-package.
+The kval package exports an interface that represents the operations that can
+be performed on the persistent key-value store.  
 
-Initialize the kval backend
-
-### `KvalIsDb(dbname string) string`
+### `kval.DB.IsDb(dbname string) string`
 
 Check whether `dbname` is a valid database name that currently exists
 
-### `KvalCreateDb(dbname string) bool`
+### `kval.DB.CreateDb(dbname string) bool`
 
 Create a new key-value store database called `dbname`
 
-### `KvalRemoveDb(dbname string) bool`
+### `kval.DB.RemoveDb(dbname string) bool`
 
 Remove database called `dbname`
 
-### `KvalKeys(dbname string)`
+### `kval.DB.Keys(dbname string)`
 
 Print the keys in the database called `dbname`
 
-### `KvalSet(dbname string, key string, value string)`
+### `kval.DB.Set(dbname string, key string, value string)`
 
 Set a new `key`-`value` pair in the database `dbname`
 
-### `KvalGet(dbname string, key string) string`
+### `kval.DB.Get(dbname string, key string) string`
 
 Return the value associated with the specified `key` in the database `dbname`
 
-### `KvalDel(dbname string, key string)`
+### `kval.DB.Del(dbname string, key string)`
 
 Delete the `key`-value pair in the database `dbname`
