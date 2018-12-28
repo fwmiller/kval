@@ -27,6 +27,7 @@ commands.
 | set		| Set a key-value pair					|
 | get		| Get the value associated with a key			|
 | del		| Delete a key-value pair				|
+| TODO: list	| List the databases for this server			|
 | TODO: append	| Append a value to a key				|
 | TODO: dbsize	| Get the number of keys in a database			|
 | TODO: dump	| Return a serialized version of a key-value pair	|
