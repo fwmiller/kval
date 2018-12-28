@@ -18,17 +18,36 @@ the Backend API below).  The following table lists the implemented cli
 commands.
 
 
-| Command	| Description					|
-|---------------|-----------------------------------------------|
-| select	| Set current database				|
-| create	| Create a new key-value store database		|
-| remove	| Remove existing database			|
-| keys          | List the keys in a database                   |
-| set		| Set a key-value pair				|
-| get		| Get the value associated with a key		|
-| del		| Delete a key-value pair			|
-| quit		| Quit						|
-| help		| Help						|
+| Command	| Description						|
+|---------------|-------------------------------------------------------|
+| select	| Set current database					|
+| create	| Create a new key-value store database			|
+| remove	| Remove existing database				|
+| keys          | List the keys in a database				|
+| set		| Set a key-value pair					|
+| get		| Get the value associated with a key			|
+| del		| Delete a key-value pair				|
+| TODO: append	| Append a value to a key				|
+| TODO: dbsize	| Get the number of keys in a database			|
+| TODO: dump	| Return a serialized version of a key-value pair	|
+| TODO: exists	| Determine if a key exists				|
+| TODO: expire	| Set a key's time-to-live as a duration		|
+| TODO: expireat| Set a key's time-to-live as an absolute time		|
+| TODO: flushall| Remove all keys from all databases			|
+| TODO: flushdb	| Remove all keys from current database			|
+| TODO: getset	| Set the value of a key and return its old value	|
+| TODO: info	| Get info and statistics about the server		|
+| TODO: mget	| Get the values for a list of keys			|
+| TODO: move	| Move a key-value pair to another database		|
+| TODO: pttl	| Get the time-to-live for a key in milliseconds	|
+| TODO: rename	| Rename a key						|
+| TODO: renamenx| Rename a key if the new key does not already exist	|
+| TODO: restore	| Create a key-value pair using serialized version	|
+| TODO: setnx	| Set key-value pair if the key does not already exist	|
+| TODO: strlen	| Get the length of the value associated with a key	|
+| TODO: time	| Get current server time				|
+| quit		| Quit							|
+| help		| Help							|
 
 ### select
 
@@ -57,6 +76,9 @@ Syntax: `get` _key_
 ### del
 
 Syntax: `del` _key_
+
+
+## TODO: Allow for multiple simultaneous network client connections
 
 
 ## Backend API
