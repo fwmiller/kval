@@ -92,30 +92,34 @@ The backend is organized as a sub-package and is used by the cli sub-package.
 The kval package exports an interface that represents the operations that can
 be performed on the persistent key-value store.  
 
-### `kval.DB.IsDb(dbname string) string`
+### `IsDb(dbname string) (string, error)`
 
 Check whether `dbname` is a valid database name that currently exists
 
-### `kval.DB.CreateDb(dbname string) bool`
+### `CreateDb(dbname string) error`
 
 Create a new key-value store database called `dbname`
 
-### `kval.DB.RemoveDb(dbname string) bool`
+### `RemoveDb(dbname string) error`
 
 Remove database called `dbname`
 
-### `kval.DB.Keys(dbname string)`
+### `Keys(dbname string) ([]string, error)`
 
 Print the keys in the database called `dbname`
 
-### `kval.DB.Set(dbname string, key string, value string)`
+### `Set(dbname string, key string, value string) error`
 
 Set a new `key`-`value` pair in the database `dbname`
 
-### `kval.DB.Get(dbname string, key string) string`
+### `Get(dbname string, key string) (string, error)`
 
 Return the value associated with the specified `key` in the database `dbname`
 
-### `kval.DB.Del(dbname string, key string)`
+### `Del(dbname string, key string) error`
+
+Delete the `key`-value pair in the database `dbname`
+
+### `List() ([]string, error)`
 
 Delete the `key`-value pair in the database `dbname`
