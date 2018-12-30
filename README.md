@@ -106,7 +106,8 @@ Remove database called `dbname`
 
 ### `Keys(dbname string) ([]string, error)`
 
-Print the keys in the database called `dbname`
+Generate a slice of strings containing the keys in the database called
+`dbname`
 
 ### `Set(dbname string, key string, value string) error`
 
@@ -122,4 +123,5 @@ Delete the `key`-value pair in the database `dbname`
 
 ### `List() ([]string, error)`
 
-Delete the `key`-value pair in the database `dbname`
+Generate a slice of strings containing the names of the databases on this
+server
