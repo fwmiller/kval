@@ -142,6 +142,17 @@ func (c *Client) Del(args string) {
 	}
 }
 
+func (c *Client) List() {
+	dbs, err := c.db.List()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	for _, db := range dbs {
+		fmt.Println(db)
+	}
+}
+
 func (c *Client) Help() {
 	fmt.Println("Help (add something useful here)")
 }

@@ -20,6 +20,7 @@ type DB interface {
 	Set(dbname string, key string, value string) error
 	Get(dbname string, key string) (string, error)
 	Del(dbname string, key string) error
+	List() ([]string, error)
 }
 
 type Kval struct {
@@ -144,4 +145,17 @@ func (k Kval) Del(dbname string, key string) error {
 	dbkey := filepath.Join(k.dir, dbname, key)
 
 	return os.Remove(dbkey)
+}
+
+func (k Kval) List() ([]string, error) {
+	files, err := ioutil.ReadDir(k.dir)
+	if err != nil {
+		return nil, fmt.Errorf("Read database dir %s failed, err: %s",
+					k.dir, err)
+	}
+	out := make([]string, len(files))
+	for i, file := range files {
+		out[i] = file.Name()
+	}
+	return out, nil
 }

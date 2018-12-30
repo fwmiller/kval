@@ -58,6 +58,8 @@ func main() {
 			getArg(s4, cli.Get)
 		case "del", "d":
 			getArg(s4, cli.Del)
+		case "list", "l":
+			cli.List()
 		case "help", "h":
 			cli.Help()
 		default:
