@@ -28,6 +28,7 @@ commands.
 | get		| Get the value associated with a key			|
 | del		| Delete a key-value pair				|
 | list		| List the databases for this server			|
+| time		| Get current server time				|
 | TODO: append	| Append a value to a key				|
 | TODO: dbsize	| Get the number of keys in a database			|
 | TODO: dump	| Return a serialized version of a key-value pair	|
@@ -82,6 +83,10 @@ Syntax: `del` _key_
 
 Syntax: `list`
 
+### time
+
+Syntax: `time`
+
 
 ## TODO: Allow for multiple simultaneous network client connections
 
@@ -125,3 +130,7 @@ Delete the `key`-value pair in the database `dbname`
 
 Generate a slice of strings containing the names of the databases on this
 server
+
+### `Time() (string)`
+
+Return a string containing the current time at the server
