@@ -153,6 +153,11 @@ func (c *Client) List() {
 	}
 }
 
+func (c *Client) Time() {
+	time := c.db.Time()
+	fmt.Println(time)
+}
+
 func (c *Client) Help() {
 	fmt.Println("Help (add something useful here)")
 }

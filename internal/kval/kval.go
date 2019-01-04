@@ -7,6 +7,7 @@ import (
 	"os/user"
 	"path/filepath"
 	"regexp"
+	"time"
 )
 
 var keyNameCheck = regexp.MustCompile(`^[a-zA-Z0-9\-_]+$`).MatchString
@@ -21,6 +22,7 @@ type DB interface {
 	Get(dbname string, key string) (string, error)
 	Del(dbname string, key string) error
 	List() ([]string, error)
+	Time() (string)
 }
 
 type Kval struct {
@@ -158,4 +160,9 @@ func (k Kval) List() ([]string, error) {
 		out[i] = file.Name()
 	}
 	return out, nil
+}
+
+func (k Kval) Time() (string) {
+	t := time.Now()
+	return t.String()
 }
