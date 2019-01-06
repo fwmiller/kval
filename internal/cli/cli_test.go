@@ -15,20 +15,26 @@ func TestClient(t *testing.T) {
 	testCases := []struct {
 		name     string
 		db       *fakeDB
-		callback func(t *testing.T, client *cli.Client)
+		callback func(t *testing.T, client *cli.Client, db *fakeDB)
 		expected []string
 	}{
 		{
 			name: "keys",
 			db: &fakeDB{
-				keys: func(n string) ([]string, error) {
-					return []string{"a", "b"}, nil
-				},
+				db: map[string]string{"a": "1", "b": "2"},
 			},
-			callback: func(t *testing.T, client *cli.Client) {
+			callback: func(t *testing.T, client *cli.Client, db *fakeDB) {
 				client.Keys()
 			},
 			expected: []string{"a", "b"},
+		},
+		{
+			name: "get",
+			db:   &fakeDB{db: map[string]string{"c": "3"}},
+			callback: func(t *testing.T, client *cli.Client, db *fakeDB) {
+				client.Get("c")
+			},
+			expected: []string{"3"},
 		},
 	}
 
@@ -41,7 +47,7 @@ func TestClient(t *testing.T) {
 			client := cli.New(tc.db)
 
 			client.Create("testdb")
-			tc.callback(subt, client)
+			tc.callback(subt, client, tc.db)
 
 			os.Stdout = old
 			f.Seek(0, 0)
@@ -64,7 +70,7 @@ func TestClient(t *testing.T) {
 
 func equalStrings(a, b []string) error {
 	if len(a) != len(b) {
-		return fmt.Errorf("lengths don't match, %d, %d", len(a), len(b))
+		return fmt.Errorf("lengths of %v and %v don't match, %d, %d", a, b, len(a), len(b))
 	}
 
 	for i, val := range a {
@@ -79,15 +85,7 @@ func equalStrings(a, b []string) error {
 type fakeDB struct {
 	kval.DB
 
-	isDB   func(dbName string) (string, error)
-	create func(dbname string) error
-	remove func(dbname string) error
-	keys   func(dbname string) ([]string, error)
-	set    func(dbname string, key string, value string) error
-	get    func(dbname string, key string) (string, error)
-	del    func(dbname string, key string) error
-	list   func() ([]string, error)
-	time   func() string
+	db map[string]string
 }
 
 // since fakeDB embeds kval.DB you only need to implement
@@ -98,5 +96,16 @@ func (f *fakeDB) Create(dbName string) error {
 }
 
 func (f *fakeDB) Keys(dbname string) ([]string, error) {
-	return f.keys(dbname)
+	out := make([]string, len(f.db))
+	var i int
+	for k := range f.db {
+		out[i] = k
+		i++
+	}
+
+	return out, nil
+}
+
+func (f *fakeDB) Get(dbname, key string) (string, error) {
+	return f.db[key], nil
 }
