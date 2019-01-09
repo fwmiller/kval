@@ -64,6 +64,8 @@ func main() {
 			cli.Time()
 		case "help", "h":
 			cli.Help()
+		case "exists", "e":
+			getArg(s4, cli.Exists)
 		default:
 			cli.Help()
 		}

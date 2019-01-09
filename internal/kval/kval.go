@@ -23,6 +23,7 @@ type DB interface {
 	Del(dbname string, key string) error
 	List() ([]string, error)
 	Time() (string)
+	Exists(dbname string, key string) bool
 }
 
 type Kval struct {
@@ -163,6 +164,19 @@ func (k Kval) List() ([]string, error) {
 }
 
 func (k Kval) Time() (string) {
-	t := time.Now()
-	return t.String()
+	return time.Now().Format(time.UnixDate)
+}
+
+func (k Kval) Exists(dbname string, key string) bool {
+	if !k.dbKeyCheck(key) {
+		return false
+	}
+	/* Assume dbname is a valid database name */
+	dbkey := filepath.Join(k.dir, dbname, key)
+
+	/* Check whether dbkey exists */
+	if _, err := os.Stat(dbkey); os.IsNotExist(err) {
+		return false
+	}
+	return true
 }

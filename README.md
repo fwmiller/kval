@@ -29,16 +29,16 @@ commands.
 | del		| Delete a key-value pair				|
 | list		| List the databases for this server			|
 | time		| Get current server time				|
+| exists	| Determine if a key exists				|
+| TODO: copy	| Copy a key-value pair to another database		|
 | TODO: append	| Append a value to a key				|
 | TODO: dbsize	| Get the number of keys in a database			|
 | TODO: dump	| Return a serialized version of a key-value pair	|
-| TODO: exists	| Determine if a key exists				|
 | TODO: expire	| Set a key's time-to-live as a duration		|
 | TODO: expireat| Set a key's time-to-live as an absolute time		|
 | TODO: flushall| Remove all keys from all databases			|
 | TODO: flushdb	| Remove all keys from current database			|
 | TODO: getset	| Set the value of a key and return its old value	|
-| TODO: info	| Get info and statistics about the server		|
 | TODO: mget	| Get the values for a list of keys			|
 | TODO: move	| Move a key-value pair to another database		|
 | TODO: pttl	| Get the time-to-live for a key in milliseconds	|
@@ -47,7 +47,6 @@ commands.
 | TODO: restore	| Create a key-value pair using serialized version	|
 | TODO: setnx	| Set key-value pair if the key does not already exist	|
 | TODO: strlen	| Get the length of the value associated with a key	|
-| TODO: time	| Get current server time				|
 | quit		| Quit							|
 | help		| Help							|
 
@@ -86,6 +85,10 @@ Syntax: `list`
 ### time
 
 Syntax: `time`
+
+### exists
+
+Syntax: `exists` _key_
 
 
 ## TODO: Allow for multiple simultaneous network client connections
@@ -131,6 +134,10 @@ Delete the `key`-value pair in the database `dbname`
 Generate a slice of strings containing the names of the databases on this
 server
 
-### `Time() (string)`
+### `Time() string`
 
 Return a string containing the current time at the server
+
+### `Exists(dbname string, key string) bool
+
+Return `true` if the key exists in the database `dbname` and `false` otherwise
