@@ -138,6 +138,6 @@ server
 
 Return a string containing the current time at the server
 
-### `Exists(dbname string, key string) bool
+### `Exists(dbname string, key string) bool`
 
 Return `true` if the key exists in the database `dbname` and `false` otherwise
