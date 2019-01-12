@@ -34,7 +34,7 @@ func main() {
 		s2 := strings.Trim(s1, "\n")
 		s3 := strings.TrimSpace(s2)
 		if len(s3) == 0 {
-			continue;
+			continue
 		}
 		s4 := strings.SplitAfterN(s3, " ", 2)
 		if len(s4) == 0 {
