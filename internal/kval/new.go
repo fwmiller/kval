@@ -18,7 +18,7 @@ func New() (*Kval, error) {
 			return nil, err
 		}
 	}
-	return &Kval {
+	return &Kval{
 		dir:        dir,
 		dbKeyCheck: keyNameCheck,
 	}, nil

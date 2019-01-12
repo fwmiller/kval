@@ -9,7 +9,7 @@ func (k Kval) List() ([]string, error) {
 	files, err := ioutil.ReadDir(k.dir)
 	if err != nil {
 		return nil, fmt.Errorf("Read database dir %s failed, err: %s",
-					k.dir, err)
+			k.dir, err)
 	}
 	out := make([]string, len(files))
 	for i, file := range files {

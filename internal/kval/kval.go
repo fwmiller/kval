@@ -16,7 +16,7 @@ type DB interface {
 	Get(dbname string, key string) (string, error)
 	Del(dbname string, key string) error
 	List() ([]string, error)
-	Time() (string)
+	Time() string
 	Exists(dbname string, key string) bool
 }
 

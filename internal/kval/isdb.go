@@ -17,16 +17,16 @@ func (k Kval) IsDB(dbname string) (string, error) {
 	fd, err := os.Open(dbpath)
 	if err != nil {
 		return "", fmt.Errorf("Open database %s failed, err: %s",
-					dbpath, err)
+			dbpath, err)
 	}
 	stat, err := fd.Stat()
 	if err != nil {
 		return "", fmt.Errorf("Stat database %s failed, err: %s",
-					dbpath, err)
+			dbpath, err)
 	}
 	if !stat.IsDir() {
 		return "", fmt.Errorf("Database %s is not a directory",
-					dbpath)
+			dbpath)
 	}
 	return dbname, nil
 }
