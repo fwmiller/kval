@@ -12,6 +12,8 @@ import (
 )
 
 func main() {
+	multiline := false
+
 	fmt.Println("kval (C) Frank W Miller")
 
 	db, err := kval.New()
@@ -23,41 +25,58 @@ func main() {
 
 	/* Command line client loop */
 	stdin := bufio.NewReader(os.Stdin)
+	var line string = ""
 	var s1 string
 	for {
 		if cli.Currdb != "" {
 			fmt.Printf("%s", cli.Currdb)
 		}
-		fmt.Printf("> ")
-
+		if multiline {
+			fmt.Printf("\\ ")
+		} else {
+			fmt.Printf("> ")
+		}
 		s1, _ = stdin.ReadString('\n')
 		s2 := strings.Trim(s1, "\n")
 		s3 := strings.TrimSpace(s2)
-		if len(s3) == 0 {
+		if len(s3) == 0 && !multiline {
 			continue
 		}
-		s4 := strings.SplitAfterN(s3, " ", 2)
-		if len(s4) == 0 {
+		// Check for multiline input
+		if (strings.HasSuffix(s3, "\\")) {
+			multiline = true
+			line += strings.TrimRight(s3, "\\")
+			line += "\n"
+			continue
+		}
+		multiline = false
+		line += s3
+
+		tokens := strings.SplitAfterN(line, " ", 2)
+		if len(tokens) == 0 {
 			fmt.Println("Missing argument")
 			continue
 		}
-		switch strings.TrimSpace(s4[0]) {
+		line = ""
+		fmt.Println(tokens)
+
+		switch strings.TrimSpace(tokens[0]) {
 		case "quit", "q":
 			os.Exit(0)
 		case "select":
-			getArg(s4, cli.Select)
+			getArg(tokens, cli.Select)
 		case "create", "c":
-			getArg(s4, cli.Create)
+			getArg(tokens, cli.Create)
 		case "remove", "r":
-			getArg(s4, cli.Remove)
+			getArg(tokens, cli.Remove)
 		case "keys", "k":
 			cli.Keys()
 		case "set", "s":
-			getArg(s4, cli.Set)
+			getArg(tokens, cli.Set)
 		case "get", "g":
-			getArg(s4, cli.Get)
+			getArg(tokens, cli.Get)
 		case "del", "d":
-			getArg(s4, cli.Del)
+			getArg(tokens, cli.Del)
 		case "list", "l":
 			cli.List()
 		case "time", "t":
@@ -65,7 +84,7 @@ func main() {
 		case "help", "h":
 			cli.Help()
 		case "exists", "e":
-			getArg(s4, cli.Exists)
+			getArg(tokens, cli.Exists)
 		default:
 			cli.Help()
 		}
