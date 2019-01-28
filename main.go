@@ -12,8 +12,6 @@ import (
 )
 
 func main() {
-	multiline := false
-
 	fmt.Println("kval (C) Frank W Miller")
 
 	db, err := kval.New()
@@ -25,8 +23,9 @@ func main() {
 
 	/* Command line client loop */
 	stdin := bufio.NewReader(os.Stdin)
-	var line string = ""
-	var s1 string
+	var s1, s2 string
+	s3 := ""
+	multiline := false
 	for {
 		if cli.Currdb != "" {
 			fmt.Printf("%s", cli.Currdb)
@@ -36,47 +35,45 @@ func main() {
 		} else {
 			fmt.Printf("> ")
 		}
+
 		s1, _ = stdin.ReadString('\n')
-		s2 := strings.Trim(s1, "\n")
-		s3 := strings.TrimSpace(s2)
-		if len(s3) == 0 && !multiline {
+		s2 = strings.TrimSpace(strings.Trim(s1, "\n"))
+		if len(s2) == 0 {
 			continue
 		}
-		// Check for multiline input
-		if (strings.HasSuffix(s3, "\\")) {
+		if strings.HasSuffix(s2, "\\") {
 			multiline = true
-			line += strings.TrimRight(s3, "\\")
-			line += "\n"
+			s3 += strings.TrimRight(s2, "\\")
+			s3 += "\n"
 			continue
 		}
 		multiline = false
-		line += s3
+		s3 += s2
 
-		tokens := strings.SplitAfterN(line, " ", 2)
-		if len(tokens) == 0 {
+		s4 := strings.SplitAfterN(s3, " ", 2)
+		if len(s4) == 0 {
 			fmt.Println("Missing argument")
 			continue
 		}
-		line = ""
-		fmt.Println(tokens)
+		s3 = ""
 
-		switch strings.TrimSpace(tokens[0]) {
+		switch strings.TrimSpace(s4[0]) {
 		case "quit", "q":
 			os.Exit(0)
 		case "select":
-			getArg(tokens, cli.Select)
+			getArg(s4, cli.Select)
 		case "create", "c":
-			getArg(tokens, cli.Create)
+			getArg(s4, cli.Create)
 		case "remove", "r":
-			getArg(tokens, cli.Remove)
+			getArg(s4, cli.Remove)
 		case "keys", "k":
 			cli.Keys()
 		case "set", "s":
-			getArg(tokens, cli.Set)
+			getArg(s4, cli.Set)
 		case "get", "g":
-			getArg(tokens, cli.Get)
+			getArg(s4, cli.Get)
 		case "del", "d":
-			getArg(tokens, cli.Del)
+			getArg(s4, cli.Del)
 		case "list", "l":
 			cli.List()
 		case "time", "t":
@@ -84,7 +81,7 @@ func main() {
 		case "help", "h":
 			cli.Help()
 		case "exists", "e":
-			getArg(tokens, cli.Exists)
+			getArg(s4, cli.Exists)
 		default:
 			cli.Help()
 		}
